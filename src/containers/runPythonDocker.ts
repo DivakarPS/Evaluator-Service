@@ -17,6 +17,7 @@ async function runPython(code: string, inputTestCase: string) {
         '-c',
         runCommand
     ]);
+    console.log("run command:", runCommand);
     await pythonDockerContainer.start();
 
     const loggerStream = await pythonDockerContainer.logs({
@@ -28,12 +29,13 @@ async function runPython(code: string, inputTestCase: string) {
     
 
     loggerStream.on("data", (chunk) => {
-        rawBuffer.push(chunk.toString());
+        rawBuffer.push(chunk);
     })
 
     await new Promise((res) => {
         loggerStream.on("end", () => {
             console.log("Python container logs ended");
+            console.log(rawBuffer);
             const completeBuffer = Buffer.concat(rawBuffer);
             const decodedStream = decodeDockerStream(completeBuffer);
             console.log(decodedStream);

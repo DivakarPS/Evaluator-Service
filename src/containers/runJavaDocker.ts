@@ -27,12 +27,12 @@ async function runJava(code: string, inputTestCase: string) {
     
 
     loggerStream.on("data", (chunk) => {
-        rawBuffer.push(chunk.toString());
+        rawBuffer.push(chunk);
     })
 
     await new Promise((res) => {
         loggerStream.on("end", () => {
-            console.log("Python container logs ended");
+            console.log("Java container logs ended");
             const completeBuffer = Buffer.concat(rawBuffer);
             const decodedStream = decodeDockerStream(completeBuffer);
             console.log(decodedStream);
