@@ -32,7 +32,7 @@ async function runPython(code: string, inputTestCase: string) {
         rawBuffer.push(chunk);
     })
 
-    await new Promise((res) => {
+    const response = await new Promise((res) => {
         loggerStream.on("end", () => {
             console.log("Python container logs ended");
             console.log(rawBuffer);
@@ -45,6 +45,7 @@ async function runPython(code: string, inputTestCase: string) {
     })
 
     await pythonDockerContainer.remove();
+    return response;
 }
 
 export default runPython;

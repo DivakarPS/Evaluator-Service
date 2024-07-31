@@ -10,6 +10,9 @@ import sampleQueue from "./queues/sampleQueue";
 import runPython from "./containers/runPythonDocker";
 import runCpp from "./containers/runCppDocker";
 import runJava from "./containers/runJavaDocker";
+import SubmissionWorker from "./worker/SubmissionWorker";
+import submissionQueue from "./queues/submissionQueue";
+import submissionQueueProducer from "./producers/submissionQueueProducer";
 
 const app: Express = express();
 
@@ -23,8 +26,10 @@ app.use("/api", apiRouter);
 app.use('/ui', bullBoardAdapter.getRouter());
 
 app.listen(serverConfig.PORT, () => {
+
+  submissionQueueProducer({"1234": {language: "python", code: `print("Hello World")`}});
   
   console.log(`Server is running on port ${serverConfig.PORT}`)
-
+  SubmissionWorker("SubmissionQueue");
   
 })
