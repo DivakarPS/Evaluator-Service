@@ -6,7 +6,7 @@ import CodeExecutorStrategy, { ExecutionResponse } from "../types/codeExecutorSt
 
 
 class JavaExecutor implements CodeExecutorStrategy {
-    async execute(code: string, inputTestCase: string): Promise<ExecutionResponse> {
+    async execute(code: string, inputTestCase: string, outputTestCase: string): Promise<ExecutionResponse> {
             const rawBuffer: Buffer[]  =[];
         // const pythonDockerContainer = await createContainer(PYTHON_IMAGE, ["python3", "-c", code, 'stty -echo']);
 

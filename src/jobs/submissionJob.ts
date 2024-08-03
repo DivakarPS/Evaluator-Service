@@ -22,13 +22,15 @@ export default class SubmissionJob implements IJob {
             const language = this.payload[key].language;
             const code = this.payload[key].code;
             const inputTestCase = this.payload[key].inputTestCase;
+            const outputTestCase = this.payload[key].outputTestCase;
+            console.log(inputTestCase,outputTestCase,language);
             // if(language == "cpp"){
             //     const evaluatedResponse = await runCpp(this.payload[key].code, inputTestCase);
             //     console.log("Evaluated response is: ", evaluatedResponse);
             // }
             const strategy =  createExecutor(language);
             if(strategy != null){
-                const response : ExecutionResponse = await strategy.execute(code, "");
+                const response : ExecutionResponse = await strategy.execute(code, inputTestCase, outputTestCase);
                 if(response.status == "COMPLETED"){
                     console.log("Code Executed Successfully");
                     console.log(response);
