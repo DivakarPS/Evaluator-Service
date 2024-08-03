@@ -7,9 +7,9 @@ import bodyParser from "body-parser";
 
 import bullBoardAdapter from "./config/bullmqUiConfig";
 import sampleQueue from "./queues/sampleQueue";
-import runPython from "./containers/runPythonDocker";
+import runPython from "./containers/pythonExecutor";
 import runCpp from "./containers/runCppDocker";
-import runJava from "./containers/runJavaDocker";
+import runJava from "./containers/JavaExecutor";
 import SubmissionWorker from "./worker/SubmissionWorker";
 import submissionQueue from "./queues/submissionQueue";
 import submissionQueueProducer from "./producers/submissionQueueProducer";
@@ -27,7 +27,7 @@ app.use('/ui', bullBoardAdapter.getRouter());
 
 app.listen(serverConfig.PORT, () => {
 
-  submissionQueueProducer({"1234": {language: "python", code: `print("Hello World")`}});
+  // submissionQueueProducer({"1234": {language: "python", code: `print("Hello World")`}});
   
   console.log(`Server is running on port ${serverConfig.PORT}`)
   SubmissionWorker("SubmissionQueue");
