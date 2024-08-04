@@ -31,11 +31,11 @@ export default class SubmissionJob implements IJob {
             const strategy =  createExecutor(language);
             if(strategy != null){
                 const response : ExecutionResponse = await strategy.execute(code, inputTestCase, outputTestCase);
-                if(response.status == "COMPLETED"){
-                    console.log("Code Executed Successfully");
+                if(response.status === "SUCCESS") {
+                    console.log("Code executed successfully");
                     console.log(response);
-                }else{
-                    console.log("Code Execution failed");
+                } else {
+                    console.log("Something went wrong with code execution");
                     console.log(response);
                 }
             }
